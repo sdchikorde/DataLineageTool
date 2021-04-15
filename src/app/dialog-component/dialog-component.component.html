@@ -1,0 +1,273 @@
+<h1 mat-dialog-title>{{commons.getNodeTypeById(data.node.id)|titlecase}}</h1>
+<div mat-dialog-content>
+  <!-- {{data.node.id}}{{commons.getNodeTypeById(data.node.id)}} -->
+
+  <div [ngSwitch]="commons.getNodeTypeById(data.node.id)">
+    <div *ngSwitchCase="'system'" style="display: table;">
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Name:</span><span style="display:table-cell;">{{data.node.name}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">ICTO:</span><span style="display:table-cell;">{{data.node.icto}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Region:</span><span style="display:table-cell;">{{data.node.region}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.poc.length>0">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Contact:</span>
+            <div style="display:table-cell;"><span *ngFor="let email of data.node.poc">{{email}}<br></span></div>
+        </div>
+    </div>
+    <div *ngSwitchCase="'table'" style="display: table;">
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Name:</span><span style="display:table-cell;">{{data.node.name}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Schema:</span><span style="display:table-cell;">{{data.node.schema}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Database:</span><span style="display:table-cell;">{{data.node.db}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.partitionInfo.length>0">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Partitioned By:</span>
+            <div style="display:table-cell;"><span *ngFor="let email of data.node.partitionInfo">{{email}}<br></span></div>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.attributes.length>0">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;vertical-align: top;">Attributes:</span>
+            <div style="display:table-cell;">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Comments</th>
+                    </tr>
+                    <tr *ngFor="let attr of data.node.attributes">
+                        <td>{{attr.name}}</td>
+                        <td>{{attr.type}}</td>
+                        <td>{{attr.comments}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div *ngSwitchCase="'operation'" style="display: table;">
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Name:</span><span style="display:table-cell;">{{data.node.name}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Type:</span><span style="display:table-cell;">{{data.node.type}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.description">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Description:</span><span style="display:table-cell;">{{data.node.description}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.jobname">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Job Name:</span><span style="display:table-cell;">{{data.node.jobname}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.jobdatacenter">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Job Datacenter:</span><span style="display:table-cell;">{{data.node.jobdatacenter}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.frequency">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Frequency:</span><span style="display:table-cell;">{{data.node.frequency}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.feedref">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Feed Consumed:</span><span style="display:table-cell;">{{data.nodeMap[data.node.feedref].name}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.tblviewref?.length>0">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Tables/Views Referred:</span>
+            <div style="display:table-cell;"><span *ngFor="let item of data.node.tblviewref">{{data.nodeMap[item].name}}<br></span></div>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.outputtblref">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Output Table:</span><span style="display:table-cell;">{{data.nodeMap[data.node.outputtblref].name}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.outputfeedref">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Output Feed:</span><span style="display:table-cell;">{{data.nodeMap[data.node.outputfeedref].name}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.filter!=undefined">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Filter:</span><span style="display:table-cell;">{{data.node.filter?'Yes':'No'}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.aggregate!=undefined">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Aggregate:</span><span style="display:table-cell;">{{data.node.aggregate?'Yes':'No'}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.transpose!=undefined">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Transpose:</span><span style="display:table-cell;">{{data.node.transpose?'Yes':'No'}}</span>
+        </div>
+    </div>
+    <div *ngSwitchCase="'feed'" style="display: table;">
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Name:</span><span style="display:table-cell;">{{data.node.name}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Direction:</span><span style="display:table-cell;">{{data.node.direction|titlecase}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Type:</span><span style="display:table-cell;">{{data.node.type}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Description:</span><span style="display:table-cell;">{{data.node.description}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Filename Regex:</span><span style="display:table-cell;">{{data.node.filenameregex}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Filename Sample:</span><span style="display:table-cell;">{{data.node.filenamesample}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.attributes.length>0">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;vertical-align: top;">Attributes:</span>
+            <div style="display:table-cell;">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Comments</th>
+                    </tr>
+                    <tr *ngFor="let attr of data.node.attributes">
+                        <td>{{attr.name}}</td>
+                        <td>{{attr.type}}</td>
+                        <td>{{attr.comments}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.gensysref">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Upstream:</span><span style="display:table-cell;">{{data.nodeMap[data.node.gensysref].name}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.consysref.length>0">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Downstream:</span>
+            <div style="display:table-cell;"><span *ngFor="let item of data.node.consysref">{{data.nodeMap[item].name}}<br></span></div>
+        </div>
+    </div>
+    <div *ngSwitchCase="'view'" style="display: table;">
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Name:</span><span style="display:table-cell;">{{data.node.name}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Schema:</span><span style="display:table-cell;">{{data.node.schema}}</span>
+        </div>
+        <div style="display: table-row;">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Database:</span><span style="display:table-cell;">{{data.node.db}}</span>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.attributes.length>0">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;vertical-align: top;">Attributes:</span>
+            <div style="display:table-cell;">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Comments</th>
+                    </tr>
+                    <tr *ngFor="let attr of data.node.attributes">
+                        <td>{{attr.name}}</td>
+                        <td>{{attr.type}}</td>
+                        <td>{{attr.comments}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div style="display: table-row;" *ngIf="data.node.tblviewref?.length>0">
+            <span style="display:table-cell;font-weight: 600;padding-right: 8px;">Tables/Views Referred:</span>
+            <div style="display:table-cell;"><span *ngFor="let item of data.node.tblviewref">{{data.nodeMap[item].name}}<br></span></div>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- 
+systems = [
+    {
+      name: "CDM",
+      icto: "ICTO-32443",
+      region: "Swiss",
+      poc: ["cdm.support@cs.com", "cdm.l1@cs.com"],
+      id: "sys000001"
+    }, 
+]
+NOTE: id should start with sys
+----------------------------------------------------------------------------
+tables = [
+    {
+      name: "dhtax_tp_rwa_finma_stg",
+      schema: "gbtax",
+      db: "F1",
+      partitionInfo: [],
+      attributes: [
+        { name: "col1", type: "string", comments: "" },
+        { name: "col2", type: "string", comments: "" },
+        { name: "col3", type: "string", comments: "" }
+      ],
+      id: "tbl000001"
+    },
+]
+NOTE: id should start with tbl
+----------------------------------------------------------------------------
+ 
+feeds = [
+    {
+      name: "RWA FINMA Group",
+      direction: "inbound",
+      description: "Risk Weighted Assets for FINMA Group level",
+      filenameregex: "rwa_finma_<YYYYMMDD>.csv",
+      filenamesample: "rwa_finma_20201231.csv",
+      type: "FTPS",
+      attributes: [
+        { name: "attr1", type: "string", comments: "" },
+        { name: "attr2", type: "string", comments: "" },
+        { name: "attr3", type: "string", comments: "" }
+      ],
+      gensysref: "sys000001",
+      consysref: ["sys000000"], //should be auto-added for inbound
+      id: "fed000001"
+    }, 
+ ]
+NOTE: id should start with fed
+----------------------------------------------------------------------------
+ operations = [
+    {
+      name: "RWA FINMA Group Ingestion",
+      type: "Ingestion",
+      description: "",
+      jobname: "PTP000008I",
+      jobdatacenter: "PNY01",
+      frequency: "BD16",
+      feedref: "fed000001",
+      tblviewref: [],
+      outputtblref: "tbl000001",
+      outputfeedref: null,
+      filter: false,
+      aggregate: false,
+      transpose: false,
+      id: "opr000001"
+    },
+    {
+      name: "RWA FINMA Group Transformation",
+      type: "Transformation",
+      description: "",
+      jobname: "PTP000008T",
+      jobdatacenter: "PNY01",
+      frequency: "BD16",
+      feedref: null,
+      tblviewref: ["tbl000001"],
+      outputtblref: "tbl000002",
+      outputfeedref: null,
+      filter: false,
+      aggregate: false,
+      transpose: false,
+      id: "opr000002"
+    }, 
+]
+NOTE: id should start with opr
+----------------------------------------------------------------------------
+views = [
+    {
+      name: "dhtax_dummy_view",
+      schema: "gbtax",
+      db: "F1",
+      attributes: [
+        { name: "col1", type: "string", comments: "" },
+        { name: "col2", type: "string", comments: "" },
+        { name: "col3", type: "string", comments: "" }
+      ],
+      tblviewref: ['tbl000002','tbl000004'],
+      id: "viw000001"
+    }
+  ] 
+NOTE: id should start with viw
+---------------------------------------------------------------------------- -->

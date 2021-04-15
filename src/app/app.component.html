@@ -1,0 +1,205 @@
+<mat-toolbar>
+	<span>Data Lineage Tool</span>
+	<!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
+</mat-toolbar>
+<!-- <mat-slider min="1" max="100" step="1" value="1"></mat-slider> -->
+
+<!-- <mat-option><ngx-mat-select-search 
+		placeholderLabel="'Find Pokemon'" 
+		noEntriesFoundLabel="'no matching Pokemon found'"></ngx-mat-select-search>
+	</mat-option> -->
+
+<!-- <h4>mat-select</h4>
+<mat-form-field appearance="fill">
+  <mat-label>Select Pokemon</mat-label>
+  <mat-select [formControl]="pokemonControl" multiple >
+	
+	<mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name"
+                  [disabled]="group.disabled">
+      <mat-option *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">
+        {{pokemon.viewValue}}
+      </mat-option>
+    </mat-optgroup>
+  </mat-select>
+</mat-form-field> -->
+
+
+<app-dropdown [masterMap]="masterMap" [nodeIdMap]="nodeIdMap" [nodeTypeVisibilityMap]="nodeTypeVisibilityMap" (updateSelection)="nodeSelectionUpdate($event)"></app-dropdown>
+<!-- <mat-form-field appearance="fill">
+  <mat-label>Pokemon</mat-label> -->
+
+  <!-- <mat-select [multiple]="true" name="fieldName">
+	  <mat-option><ngx-mat-select-search 
+		placeholderLabel="Find bank..." 
+		noEntriesFoundLabel="'no matching bank found'"></ngx-mat-select-search></mat-option>
+    <mat-option>-- None --</mat-option>
+    <mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name"
+                  [disabled]="group.disabled">
+      <mat-option *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">
+        {{pokemon.viewValue}}
+      </mat-option>
+    </mat-optgroup>
+  </mat-select> -->
+<!-- </mat-form-field> -->
+<!-- {{name}}
+<button (click)="printnodelink()">Print node link</button>
+<p>
+	Start editing to see some magic happen :)
+</p> -->
+<!--<button (click)="addNode()">Add node</button>
+<button (click)="addLink()">Add link</button>
+-->
+<!-- <ng-multiselect-dropdown [placeholder]="'Systems'" [data]="dropdownList" [(ngModel)]="selectedItems"
+	[settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+</ng-multiselect-dropdown> -->
+<!-- <angular2-multiselect [data]="itemList" 
+                      [(ngModel)]="selectedItems" 
+                      [settings]="settings" 
+                      (onSelect)="onItemSelect($event)"
+                      (onDeSelect)="OnItemDeSelect($event)" 
+                      (onSelectAll)="onSelectAll($event)" 
+                      (onDeSelectAll)="onDeSelectAll($event)">
+</angular2-multiselect> -->
+<!-- <div style="clear: both;border-bottom: 1px solid gray;display: flex;text-align: center;padding-top: 16px;padding-bottom: 16px;;">
+	<div style="float: left;width:25%;">
+		<h4>Systems <img  src="{{nodeTypeVisibilityMap.system?showImage:hideImage}}" title="{{nodeTypeVisibilityMap.system?'Click to hide System Nodes':'Click to show System Nodes'}}" class="showHide" (click)="toggleNodeVisibility('system')"/></h4>
+		Visibility :<img src="{{nodeTypeVisibilityMap.system?showImage:hideImage}}" class="showHide" (click)="toggleNodeVisibility('system')"/>
+		<li *ngFor="let system of systems" (click)="addNodeForGraph(system.id,true)" [ngClass]="{disabled:!nodeTypeVisibilityMap.system,pointer:nodeTypeVisibilityMap.system}">{{system.name}}<span *ngIf="nodeIdMap[system.id]" (click)="removeNode(system.id);$event.stopPropagation()" style="cursor: pointer;">&nbsp;&#10004;&#65039;</span></li>
+	</div>
+	<div style="float: left;width:25%;">
+		<h4>Feeds <img  src="{{nodeTypeVisibilityMap.feed?showImage:hideImage}}" title="{{nodeTypeVisibilityMap.feed?'Click to hide Feed Nodes':'Click to show Feed Nodes'}}" class="showHide" (click)="toggleNodeVisibility('feed')"/></h4>
+		Visibility :<img src="{{nodeTypeVisibilityMap.feed?showImage:hideImage}}" class="showHide" (click)="toggleNodeVisibility('feed')"/>
+		<li *ngFor="let feed of feeds" (click)="addNodeForGraph(feed.id,true)" [ngClass]="{disabled:!nodeTypeVisibilityMap.feed,pointer:nodeTypeVisibilityMap.system}">{{feed.name}}<span *ngIf="nodeIdMap[feed.id]" (click)="removeNode(feed.id);$event.stopPropagation()" style="cursor: pointer;">&nbsp;&#10004;&#65039;</span></li>
+	</div>
+	<div style="float: left;width:25%;">
+		<h4>Tables <img  src="{{nodeTypeVisibilityMap.table?showImage:hideImage}}" title="{{nodeTypeVisibilityMap.table?'Click to hide Table Nodes':'Click to show Table Nodes'}}" class="showHide" (click)="toggleNodeVisibility('table')"/></h4>
+		Visibility :<img src="{{nodeTypeVisibilityMap.table?showImage:hideImage}}" class="showHide" (click)="toggleNodeVisibility('table')"/>
+		<li *ngFor="let table of tables" (click)="addNodeForGraph(table.id,true)" [ngClass]="{disabled:!nodeTypeVisibilityMap.table,pointer:nodeTypeVisibilityMap.system}">{{table.name}}<span *ngIf="nodeIdMap[table.id]" (click)="removeNode(table.id);$event.stopPropagation()" style="cursor: pointer;">&nbsp;&#10004;&#65039;</span></li>
+	</div>
+	<div style="float: left;width:25%;">
+		<h4>Operations <img  src="{{nodeTypeVisibilityMap.operation?showImage:hideImage}}" title="{{nodeTypeVisibilityMap.operation?'Click to hide Operation Nodes':'Click to show Operation Nodes'}}" class="showHide" (click)="toggleNodeVisibility('operation')"/></h4>
+		Visibility :<img src="{{nodeTypeVisibilityMap.operation?showImage:hideImage}}" class="showHide" (click)="toggleNodeVisibility('operation')"/>
+		<li *ngFor="let operation of operations" (click)="addNodeForGraph(operation.id,true)" [ngClass]="{disabled:!nodeTypeVisibilityMap.operation,pointer:nodeTypeVisibilityMap.system}">{{operation.name}}<span *ngIf="nodeIdMap[operation.id]" (click)="removeNode(operation.id);$event.stopPropagation()" style="cursor: pointer;">&nbsp;&#10004;&#65039;</span></li>
+	</div>
+	<div style="float: left;width:25%;">
+		<h4>Views <img  src="{{nodeTypeVisibilityMap.view?showImage:hideImage}}" title="{{nodeTypeVisibilityMap.view?'Click to hide View Nodes':'Click to show View Nodes'}}" class="showHide" (click)="toggleNodeVisibility('view')"/></h4>
+		Visibility :<img src="{{nodeTypeVisibilityMap.operation?showImage:hideImage}}" class="showHide" (click)="toggleNodeVisibility('operation')"/>
+		<li *ngFor="let view of views" (click)="addNodeForGraph(view.id,true)" [ngClass]="{disabled:!nodeTypeVisibilityMap.view,pointer:nodeTypeVisibilityMap.view}">{{view.name}}<span *ngIf="nodeIdMap[view.id]" (click)="removeNode(view.id);$event.stopPropagation()" style="cursor: pointer;">&nbsp;&#10004;&#65039;</span></li>
+	</div>
+</div> -->
+
+<mat-divider></mat-divider>
+<!-- 
+<p>{{parse(nodeIdMap)}}</p>
+<br> -->
+<!-- <div>{{parse(getNodeById(selectedNodeId))}}</div> -->
+<div *ngIf="selectedNodeId.length > 0">
+	<center style="
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    justify-content: center;
+    justify-items: center;
+    display: flex;">
+		<div style="display: flex;align-items: flex-start;padding-top: 16px;padding-bottom: 16px;">
+			<div style="display: contents;" [ngStyle]="{'visibility':(getNodeById(selectedNodeId).backwardnodes.length>0?'visible':'hidden')}">
+				<button matTooltip="Add all backward lineage nodes recursively till source" mat-button style="border: 1px solid gray;margin-top: -8px;" (click)="addAllBackwardNodes(selectedNodeId,true)">&#9664;&#9664;</button>
+				<!-- <span style="margin-top: 2px;">&lt;&lt;</span> -->
+				<span style="width:120px;border-bottom: 1px solid black;margin-top: -13px;padding-bottom: 4px;font-size: 0.9em;color: gray;">&nbsp;&nbsp;Total Bwd Lineage</span>
+				<button matTooltip="Add all previous level backward lineage nodes" mat-button style="border: 1px solid gray;margin-top: -8px;" (click)="addAllBackwardNodes(selectedNodeId,false)">&#9664; </button>
+				<!-- <span style="margin-top: 2px;">&lt;</span> -->
+				<!-- <span style="width:100px;border-top: 1px solid black;margin-top: 10px;font-size: 0.9em;color: gray;">&nbsp;&nbsp;Prev Level Lineage</span> -->
+				<div style="position: relative;display: grid;">
+					<span style="border-bottom: 1px solid black;margin-top: -13px;padding-bottom: 4px;font-size: 0.9em;color: gray;width: 100%;">&nbsp;&nbsp;Prev Level Lineage</span>
+					<div style="text-align: left;padding: 12px;" [ngClass]="{invisible:!getNodeById(selectedNodeId).backwardnodes.length > 0}">
+						<!-- <h4>Backward Nodes</h4>
+						<button (click)="addAllBackwardNodes(selectedNodeId,true)">&#9198; Complete Backward Lineage</button>
+						<button (click)="addAllBackwardNodes(selectedNodeId,false)">&#9204; Previous Level Backward Lineage</button> -->
+						<div *ngFor="let nodeid of getNodeById(selectedNodeId).backwardnodes"  [ngClass]="{disabled:!nodeTypeVisibilityMap[commons.getNodeTypeById(nodeid)]}">
+							<span matTooltip="{{nodeIdMap[nodeid]?'Remove':'Add'}} node" style="cursor:pointer; margin-right: 8px;border: 1px solid gray;" [ngStyle]="{'padding-right': (nodeIdMap[nodeid]?'0px':'2px')}" (click)="nodeIdMap[nodeid]?removeNode(nodeid):addNodeForGraph(nodeid,false)">{{nodeIdMap[nodeid]?'&#10004;&#65039;':'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'}}</span>
+							<span style="cursor:pointer" (click)="addNodeForGraph(nodeid)">
+								{{getNodeById(nodeid).name}}
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h3 style="margin: 0 8px 0 8px;">{{getNodeById(selectedNodeId).name}} ({{commons.getNodeTypeById(selectedNodeId)|titlecase}})</h3>
+			<mat-icon matTooltip="Know more about this node" style="cursor: pointer;margin-right: 6px;" (click)="openDialog(getNodeById(selectedNodeId),masterMap)">info</mat-icon>
+			<div style="display: contents;" [ngStyle]="{'visibility':(getNodeById(selectedNodeId).forwardnodes.length>0?'visible':'hidden')}">
+				<!-- <span style="width:100px;border-top: 1px solid black;margin-top: 10px;font-size: 0.9em;color: gray;text-align: right;">Next Level Lineage&nbsp;&nbsp;</span> -->
+				<div style="position: relative;display: grid;">
+					<span style="border-bottom: 1px solid black;margin-top: -13px;padding-bottom: 4px;font-size: 0.9em;color: gray;width: 100%;">Next Level Lineage&nbsp;&nbsp;</span>
+					<div style="text-align: left;padding: 12px;" [ngClass]="{invisible:!getNodeById(selectedNodeId).forwardnodes.length > 0}">
+						<!-- <h4>Forward Nodes</h4>
+						<button (click)="addAllForwardNodes(selectedNodeId,false)">Next Level Forward Lineage &#9205;</button>
+						<button (click)="addAllForwardNodes(selectedNodeId,true)">Complete Forward Lineage &#9197;</button> -->
+						<div *ngFor="let nodeid of getNodeById(selectedNodeId).forwardnodes"  [ngClass]="{disabled:!nodeTypeVisibilityMap[commons.getNodeTypeById(nodeid)]}">
+							<span matTooltip="{{nodeIdMap[nodeid]?'Remove':'Add'}} node" style="cursor:pointer; margin-right: 8px;border: 1px solid gray;" [ngStyle]="{'padding-right': (nodeIdMap[nodeid]?'0px':'2px')}" (click)="nodeIdMap[nodeid]?removeNode(nodeid):addNodeForGraph(nodeid,false)">{{nodeIdMap[nodeid]?'&#10004;&#65039;':'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'}}</span>
+							<span style="cursor:pointer" (click)="addNodeForGraph(nodeid,true)">
+								{{getNodeById(nodeid).name}}
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- <span style="margin-top: 2px;">&gt;</span> -->
+				<button matTooltip="Add all next level forward lineage nodes" mat-button style="border: 1px solid gray;margin-top: -8px;" (click)="addAllForwardNodes(selectedNodeId,false)">&#9654;</button>
+				<span style="width:120px;border-bottom: 1px solid black;margin-top: -13px;padding-bottom: 4px;font-size: 0.9em;color: gray;text-align: right;">Total Fwd Lineage&nbsp;&nbsp;</span>
+				<!-- <span style="margin-top: 2px;">&gt;&gt;</span> -->
+				<button matTooltip="Add all forward lineage nodes recursively till destination" mat-button style="border: 1px solid gray;margin-top: -8px;" (click)="addAllForwardNodes(selectedNodeId,true)">&#9654;&#9654;</button>
+			</div>
+		</div>
+	</center>
+	
+	<!-- <div style="clear: both;padding: 12px;border-bottom: 1px solid gray;display: flex;">
+		<div style="float: left;width:50%;" [ngClass]="{invisible:!getNodeById(selectedNodeId).backwardnodes.length > 0}">
+			<h4>Backward Nodes</h4>
+			<button (click)="addAllBackwardNodes(selectedNodeId,true)">&#9198; Complete Backward Lineage</button>
+			<button (click)="addAllBackwardNodes(selectedNodeId,false)">&#9204; Previous Level Backward Lineage</button>
+			<div *ngFor="let nodeid of getNodeById(selectedNodeId).backwardnodes"  [ngClass]="{disabled:!nodeTypeVisibilityMap[commons.getNodeTypeById(nodeid)]}">
+			<span style="cursor:pointer" (click)="addNodeForGraph(nodeid)">
+				{{getNodeById(nodeid).name}}</span>
+			<span style="cursor:pointer; margin-left: 8px;" *ngIf="nodeIdMap[nodeid]" (click)="removeNode(nodeid)">&#10004;&#65039;</span>
+			</div>
+		</div>
+		<div style="float: left;width:50%;" [ngClass]="{invisible:!getNodeById(selectedNodeId).forwardnodes.length > 0}">
+			<h4>Forward Nodes</h4>
+			<button (click)="addAllForwardNodes(selectedNodeId,false)">Next Level Forward Lineage &#9205;</button>
+			<button (click)="addAllForwardNodes(selectedNodeId,true)">Complete Forward Lineage &#9197;</button>
+			<div *ngFor="let nodeid of getNodeById(selectedNodeId).forwardnodes"  [ngClass]="{disabled:!nodeTypeVisibilityMap[commons.getNodeTypeById(nodeid)]}">
+			<span style="cursor:pointer" (click)="addNodeForGraph(nodeid,true)">
+				{{getNodeById(nodeid).name}}</span>
+			<span style="cursor:pointer; margin-left: 8px;" *ngIf="nodeIdMap[nodeid]" (click)="removeNode(nodeid)">&#10004;&#65039;</span>
+			</div>
+		</div>
+	</div> -->
+</div>
+<mat-divider></mat-divider>
+
+<div style="position: relative;">
+<button matTooltip="Reset zoom level and recenter graph" mat-button (click)="resetZoom()" class="resetZoomButton">Reset Zoom</button>
+<button matTooltip="Remove all visible nodes in graph" mat-button *ngIf="nodes.length>0" (click)="clearAll()" class="clearAllButton">Clear Nodes</button>
+<svg:svg #svgElement style="width:99%;margin:2px;" height="600"></svg>
+
+<div style="display: flex;position: absolute;flex-direction: row;top: 0px;right: 11px;margin-top: 2px;margin-left: 3px;font-weight: 500;">
+	<!-- <div style="border-top: 1px solid gray;border-right: 1px solid gray;padding: 8px;">LEGENDS:</div> -->
+	<div *ngFor="let symbol of nodeIconMap | keyvalue" style="border-bottom: 1px solid gray;border-left: 1px solid gray;padding: 8px;">
+		<span style="font-size: large;">{{symbol.value}}</span>&nbsp;&nbsp;<span>{{symbol.key|titlecase}}</span>
+		<mat-slide-toggle
+		  matTooltip="{{nodeTypeVisibilityMap[symbol.key]?'Disable':'Enable'}} visibility for nodes of type {{symbol.key|titlecase}}"
+          [color]="'primary'"
+		  [checked]="nodeTypeVisibilityMap[symbol.key]"
+		  (change)="toggleNodeVisibility(symbol.key)"
+		  style="margin-left:8px;">
+		  &nbsp;
+      </mat-slide-toggle>
+	</div>
+</div>
+</div>
+<!-- <button (click)="hideNodeType('operation')">Hide Operations</button>
+<button (click)="hideNodeType('table')">Hide Tables</button>
+<button (click)="hideNodeType('feed')">Hide Feeds</button>
+<br>
+<button (click)="showNodeType('operation')">Show Operations</button>
+<button (click)="showNodeType('table')">Show Tables</button>
+<button (click)="showNodeType('feed')">Show Feeds</button> -->

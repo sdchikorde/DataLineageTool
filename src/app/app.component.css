@@ -1,0 +1,51 @@
+::ng-deep .link {
+stroke:#999;
+cursor: default;
+}
+
+::ng-deep .node {
+pointer-events: all;
+stroke: none;
+stroke-width: 40px;
+cursor: pointer;
+}
+
+svg{
+    border: 1px solid gray;
+    cursor: all-scroll;
+}
+
+.showHide{
+    height: 24px;width:24px;vertical-align: middle;cursor: pointer;
+}
+
+.disabled{
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.2;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.invisible{
+    visibility: hidden;
+}
+
+.resetZoomButton{
+     position: absolute;
+     z-index: 15;
+     left: 4px;
+     top: 4px;
+     float: left;
+}
+
+.clearAllButton{
+    position: absolute;
+    z-index: 15;
+    left: 4px;
+    top: 36px;
+    float: left;
+}
+

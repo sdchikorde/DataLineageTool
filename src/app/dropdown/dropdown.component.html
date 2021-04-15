@@ -1,0 +1,47 @@
+
+<!-- {{selectFormControl.value}} -->
+<!-- <center> -->
+<mat-form-field style="min-width: calc(100% - 80px);padding-left: 12px;">
+	<mat-select (openedChange)="openedChange($event)" placeholder="Add Nodes" [formControl]="selectFormControl" multiple>
+		<mat-select-trigger>
+			<span *ngIf="selectFormControl.value?.length > 0" class="additional-selection" style="padding-left: 8px;">
+        {{selectFormControl.value.length}} {{' Selected'}}
+        <!-- Select Entities -->
+      </span>
+    </mat-select-trigger>
+    <div class="select-container">
+      <mat-optgroup >
+        <mat-form-field>
+        <input #search autocomplete="off" placeholder="Search" aria-label="Search" matInput [formControl]="searchTextboxControl">
+        <!-- <button [disableRipple]="true" *ngIf="search.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch($event)"> -->
+        <mat-icon *ngIf="search.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch($event)">close</mat-icon>
+        <!-- </button> -->
+        </mat-form-field>
+      </mat-optgroup>
+      <mat-optgroup *ngIf="(filteredOptions | async).length == 0">
+        <div>No results found!</div>
+      </mat-optgroup>
+      <mat-optgroup *ngIf="(filteredOptions | async).length > 0">
+        <a style="cursor: pointer;" (click)="selectAll()">Select All</a>
+        &nbsp;/&nbsp;
+        <a style="cursor: pointer;" (click)="deselectAll()">Deselect All</a>
+      </mat-optgroup>
+  <!-- <mat-option (onSelectionChange)="selectionChange($event)" *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option> -->
+      <mat-optgroup *ngFor="let group of filteredOptions | async" [label]="group.name|uppercase"
+      [disabled]="group.disabled">
+          <mat-option (onSelectionChange)="selectionChange($event)" *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">
+              {{pokemon.viewValue}}
+          </mat-option>
+      </mat-optgroup>
+    </div>
+</mat-select>
+</mat-form-field>
+<!-- </center> -->
+<!-- <div *ngIf="selectFormControl.value">{{ 'You have choosen ' + selectFormControl.value }}</div> -->
+<!-- <button (click)="data[2].disabled=true;">Disable group no. 3</button> -->
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
