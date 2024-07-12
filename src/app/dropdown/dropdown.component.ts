@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, Input, SimpleChanges, SimpleChange, Output, EventEmitter, KeyValueDiffers } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CommonsService } from '../commons.service';
@@ -108,8 +108,8 @@ export class DropdownComponent {
 
   @ViewChild('search') searchTextBox: ElementRef;
 
-  selectFormControl = new FormControl();
-  searchTextboxControl = new FormControl();
+  selectFormControl = new UntypedFormControl();
+  searchTextboxControl = new UntypedFormControl();
   selectedValues = [];
   /*data: string[] = [
     'A1',
